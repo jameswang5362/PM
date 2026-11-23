@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Management | Engineering | Yomura Technologies</title>
+<meta name="description" content="Every Yomura project is planned by the six Ms and reviewed every week on one page. See how our 6M Weekly Presentation Report keeps plans, changes and reasons visible to you.">
+<style>
+  /* All rules are scoped to .ymr-pm so the <main> block can be pasted into an existing page. */
+  .ymr-pm { --navy:#1f2f6b; --ink:#222a35; --muted:#5b6573; --line:#d9dde4; --soft:#f4f6fa; --amber:#fff1c2; --red:#b3261e;
+            font-family:"Helvetica Neue",Arial,"Segoe UI",sans-serif; color:var(--ink); line-height:1.65; font-size:17px; }
+  .ymr-pm *, .ymr-pm *::before, .ymr-pm *::after { box-sizing:border-box; }
+  .ymr-pm .wrap { max-width:1060px; margin:0 auto; padding:0 24px; }
+  .ymr-pm a { color:var(--navy); }
+  .ymr-pm .crumbs { font-size:14px; color:var(--muted); padding:18px 0 0; }
+  .ymr-pm .crumbs a { color:var(--muted); text-decoration:none; }
+  .ymr-pm .crumbs a:hover { text-decoration:underline; }
+  .ymr-pm .hero { padding:28px 0 36px; border-bottom:1px solid var(--line); }
+  .ymr-pm h1 { font-size:clamp(32px,5vw,46px); line-height:1.15; margin:8px 0 14px; color:var(--navy); letter-spacing:-.01em; }
+  .ymr-pm .lede { font-size:20px; color:#37404d; max-width:760px; margin:0; }
+  .ymr-pm .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+  .ymr-pm .chip { padding:6px 14px; border-radius:999px; font-size:14px; font-weight:600; border:1.5px solid; }
+  .ymr-pm .c-man{background:#f2f2f2;border-color:#444;color:#333} .ymr-pm .c-machine{background:#e9cfe9;border-color:#7b3f9e;color:#5b2a78}
+  .ymr-pm .c-material{background:#f4c9dd;border-color:#c2185b;color:#8d1141} .ymr-pm .c-method{background:#f8d6b0;border-color:#b5651d;color:#7d450f}
+  .ymr-pm .c-measure{background:#f2c6c0;border-color:#9e1b1b;color:#701212} .ymr-pm .c-milieu{background:#fbe0d0;border-color:#a0522d;color:#74391e}
+  .ymr-pm section { padding:44px 0 8px; }
+  .ymr-pm h2 { font-size:28px; line-height:1.25; margin:0 0 12px; color:var(--navy); }
+  .ymr-pm h3 { font-size:19px; margin:0 0 6px; }
+  .ymr-pm p { margin:0 0 14px; max-width:780px; }
+  .ymr-pm .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin-top:22px; padding:0; list-style:none; counter-reset:s; }
+  .ymr-pm .steps li { background:var(--soft); border:1px solid var(--line); border-radius:10px; padding:20px 20px 16px; counter-increment:s; }
+  .ymr-pm .steps li::before { content:counter(s); display:inline-flex; width:30px; height:30px; border-radius:50%; background:var(--navy); color:#fff; font-weight:700; align-items:center; justify-content:center; margin-bottom:10px; }
+  .ymr-pm .steps p { font-size:15.5px; margin:0; }
+  .ymr-pm .six { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:22px; }
+  .ymr-pm .card { border:1px solid var(--line); border-left-width:6px; border-radius:8px; padding:16px 18px; background:#fff; }
+  .ymr-pm .card h3 small { font-weight:400; color:var(--muted); font-size:14px; margin-left:6px; }
+  .ymr-pm .card p { font-size:15.5px; margin:0; }
+  .ymr-pm .b-man{border-left-color:#444} .ymr-pm .b-machine{border-left-color:#7b3f9e} .ymr-pm .b-material{border-left-color:#c2185b}
+  .ymr-pm .b-method{border-left-color:#b5651d} .ymr-pm .b-measure{border-left-color:#9e1b1b} .ymr-pm .b-milieu{border-left-color:#a0522d}
+  .ymr-pm .why { background:var(--soft); border-radius:10px; padding:18px 22px; margin-top:22px; max-width:860px; }
+  .ymr-pm .why p { margin:0; }
+  /* sample report */
+  .ymr-pm .report { border:2px solid var(--navy); border-radius:10px; overflow:hidden; margin:24px 0 8px; background:#fff; }
+  .ymr-pm .rhead { display:flex; flex-wrap:wrap; gap:10px 28px; align-items:center; background:var(--navy); color:#fff; padding:14px 20px; }
+  .ymr-pm .rhead strong { font-size:17px; letter-spacing:.04em; }
+  .ymr-pm .rhead .wk { background:#fff; color:var(--navy); font-weight:700; padding:2px 12px; border-radius:6px; }
+  .ymr-pm .rhead span { font-size:14px; opacity:.95; }
+  .ymr-pm .rchips { display:flex; flex-wrap:wrap; gap:6px; padding:12px 20px; border-bottom:1px solid var(--line); background:#fafbfd; }
+  .ymr-pm .rchips .chip { font-size:12.5px; padding:3px 11px; }
+  .ymr-pm .tablewrap { overflow-x:auto; }
+  .ymr-pm table { border-collapse:collapse; width:100%; min-width:860px; font-size:14.5px; }
+  .ymr-pm caption { text-align:left; font-size:14px; color:var(--muted); padding:10px 20px; caption-side:bottom; }
+  .ymr-pm th { background:#e6e9f0; text-align:left; padding:10px 12px; font-size:13px; text-transform:uppercase; letter-spacing:.03em; border-bottom:2px solid var(--navy); white-space:nowrap; }
+  .ymr-pm td { padding:11px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .ymr-pm td.m { font-weight:700; white-space:nowrap; text-align:center; }
+  .ymr-pm tr.review td.rec { background:var(--amber); }
+  .ymr-pm .chg { color:var(--red); font-weight:600; }
+  .ymr-pm .slip { font-weight:700; white-space:nowrap; }
+  .ymr-pm .open { font-weight:700; color:var(--red); } .ymr-pm .closed { color:#2e7d32; font-weight:600; }
+  .ymr-pm .cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:20px; }
+  .ymr-pm .cols div { border-top:3px solid var(--navy); padding-top:8px; }
+  .ymr-pm .cols h3 { font-size:16px; } .ymr-pm .cols p { font-size:15px; margin:0; }
+  .ymr-pm .compare { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin:22px 0; }
+  .ymr-pm .compare div { border:1px solid var(--line); border-radius:10px; padding:16px 18px; }
+  .ymr-pm .compare .us { border:2px solid var(--navy); background:#f6f8ff; }
+  .ymr-pm .compare h3 { font-size:17px; } .ymr-pm .compare p { font-size:15px; margin:0; }
+  .ymr-pm ul.tick { padding:0; list-style:none; max-width:780px; }
+  .ymr-pm ul.tick li { padding:8px 0 8px 32px; position:relative; border-bottom:1px solid var(--line); }
+  .ymr-pm ul.tick li::before { content:"\2713"; position:absolute; left:4px; top:8px; color:var(--navy); font-weight:700; }
+  .ymr-pm .cta { margin:48px 0 0; background:var(--navy); color:#fff; border-radius:12px; padding:30px 32px; display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:space-between; }
+  .ymr-pm .cta h2 { color:#fff; margin:0 0 4px; font-size:24px; } .ymr-pm .cta p { margin:0; color:#dfe4f5; }
+  .ymr-pm .btn { background:#fff; color:var(--navy); text-decoration:none; font-weight:700; padding:12px 26px; border-radius:8px; }
+  .ymr-pm .btn:hover { background:#e6e9f0; }
+  .ymr-pm .note { font-size:13.5px; color:var(--muted); max-width:none; margin:10px 0 0; }
+  .ymr-pm .end { padding-bottom:56px; }
+  @media (max-width:640px) { .ymr-pm { font-size:16px; } .ymr-pm .lede { font-size:18px; } .ymr-pm .cta { padding:24px 20px; } }
+  @media print { .ymr-pm .cta { display:none; } }
+</style>
+</head>
+<body>
+<main class="ymr-pm">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/service-offered/">Service Offered</a> &rsaquo; <a href="/service-offered/engineering/">Engineering</a> &rsaquo; Project Management</nav>
+
+    <header class="hero">
+      <h1>Project Management</h1>
+      <p class="lede">Every Yomura project is planned by the six Ms and reviewed every week on a single page. You see the plan, what happened, and why, for every task from kickoff to launch.</p>
+      <div class="chips" aria-label="The six Ms">
+        <span class="chip c-man">Man</span><span class="chip c-machine">Machine</span><span class="chip c-material">Material</span>
+        <span class="chip c-method">Method</span><span class="chip c-measure">Measure</span><span class="chip c-milieu">Milieu</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>Your drawing, price and launch date become a plan</h2>
+      <p>A new part is more than a mold and a molding machine. It needs a resin that arrives on time, a gauge that has been qualified, an operator who has been trained, and a room that holds the right temperature. Projects slip when one of these is forgotten.</p>
+      <p>Yomura runs every project from one document, the <strong>6M Weekly Presentation Report</strong>. The project manager builds it at kickoff, the team reviews it every week, and it stays open for you to read.</p>
+    </section>
+
+    <section aria-labelledby="how">
+      <h2 id="how">How a project runs</h2>
+      <ol class="steps">
+        <li><h3>Kickoff</h3><p>We confirm scope, launch date and price in a project approval sheet, name the team, and fix a weekly review slot with you.</p></li>
+        <li><h3>Plan by the six Ms</h3><p>The project manager walks through each M and asks what the job needs. Every answer becomes a task with an owner and a due date.</p></li>
+        <li><h3>Review every week</h3><p>The team goes through the one-page report. Open tasks come first. Any change is entered with its date and its reason.</p></li>
+        <li><h3>Close and learn</h3><p>Finished tasks stay on the page. Customer feedback and defects return to the next project through 8D and corrective action requests (CAR).</p></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="sixm">
+      <h2 id="sixm">Planning by the six Ms, not by department</h2>
+      <p>Most project plans follow phases: design, tooling, trial, production. Items that belong to no single phase tend to fall through. We lay out the plan under six headings instead, so each of those items has a place in the table, and an empty place gets noticed.</p>
+      <div class="six">
+        <article class="card b-man"><h3>Man <small>Human Resources</small></h3><p>Teamwork, communication, on-the-job training, certification, shift handover. Who approves, who is responsible, who needs to be trained.</p></article>
+        <article class="card b-machine"><h3>Machine <small>Machinery &amp; Equipment</small></h3><p>Machines, molds and fixtures, assembly tools, peripheral equipment, material feeding, capacity, preventive maintenance.</p></article>
+        <article class="card b-material"><h3>Material <small>Material Supply</small></h3><p>Chemical and physical properties, RoHS, BOM and MRP, supply chain, storage and logistics. Which resin, from whom, and by when.</p></article>
+        <article class="card b-method"><h3>Method <small>Method Efficiency</small></h3><p>Parameter optimization, error-proofing, SOP, standard time, ergonomics, automation, MES control.</p></article>
+        <article class="card b-measure"><h3>Measure <small>Quality Measurement</small></h3><p>Gauge qualification, inspection instruments, SPC, SIP, measurement system analysis (MSA), reliability tests.</p></article>
+        <article class="card b-milieu"><h3>Milieu <small>Work Environment</small></h3><p>Temperature, humidity, lighting, noise, environmental protection, safety, 5S.</p></article>
+      </div>
+    </section>
+
+    <section aria-labelledby="report">
+      <h2 id="report">The 6M Weekly Presentation Report</h2>
+      <p>The report is one table. The header gives the week number, project name, issue date, team leader and team members. Six colored markers across the top remind the team that all six Ms must be covered. Below it, each row is one task, filed under one M.</p>
+
+      <div class="report" role="group" aria-label="Illustrative 6M Weekly Presentation Report">
+        <div class="rhead"><span class="wk">W51</span><strong>6M WEEKLY PRESENTATION REPORT</strong><span>Project: Two-shot housing with painting and laser marking</span><span>Issue date: Dec 20</span><span>Team: Project Manager, Product Engineer, Tooling Engineer, Purchasing</span></div>
+        <div class="rchips"><span class="chip c-machine">Machine &amp; Equipment</span><span class="chip c-material">Material Supply</span><span class="chip c-measure">Quality Measurement</span><span class="chip c-man">Human Resources</span><span class="chip c-milieu">Work Environment</span><span class="chip c-method">Method Efficiency</span></div>
+        <div class="tablewrap">
+          <table>
+            <caption>Illustrative example adapted from a real project report. Customer, names and dates are simplified. Amber marks the row under review this week; red text marks a change and its reason.</caption>
+            <thead><tr><th scope="col">6M</th><th scope="col">Task</th><th scope="col">Responsible</th><th scope="col">Initial due</th><th scope="col">Actual due</th><th scope="col">vs. plan</th><th scope="col">Status</th><th scope="col">Action records</th></tr></thead>
+            <tbody>
+              <tr><td class="m">Man</td><td>Project approval sheet and pro forma invoice</td><td>Project Manager</td><td>Dec 6</td><td>Dec 6</td><td class="slip">On time</td><td class="closed">Closed</td><td class="rec">&mdash;</td></tr>
+              <tr><td class="m">Man</td><td>Final drawing confirmation</td><td>Product Engineer</td><td>Dec 10</td><td>Dec 17</td><td class="slip">+7 days</td><td class="closed">Closed</td><td class="rec"><span class="chg">12/15 Customer declined to move the marking position.</span> Drawing frozen on 12/17 with the original position.</td></tr>
+              <tr><td class="m">Man</td><td>Mold design review, third round</td><td>Tooling Engineer, Product Engineer</td><td>Dec 17</td><td>Dec 20</td><td class="slip">+3 days</td><td class="closed">Closed</td><td class="rec"><span class="chg">12/17 Customer proposed a new L-shaped mechanism.</span> Wall thickened from 1.5 mm to 2.0 mm to support it.</td></tr>
+              <tr class="review"><td class="m">Material</td><td>Polycarbonate resin, customer-supplied</td><td>Purchasing</td><td>Dec 10</td><td>&mdash;</td><td class="slip">+10 days, open</td><td class="open">Open</td><td class="rec"><span class="chg">12/19 Customer e-mail: shipment still being arranged.</span> Customer to ship to Yomura before the end of December.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div><h3>Task and 6M</h3><p>What has to be done, and which M it belongs to.</p></div>
+        <div><h3>Responsible</h3><p>One named owner for every row.</p></div>
+        <div><h3>Initial Due Date</h3><p>Written once when the project is planned. Never changed.</p></div>
+        <div><h3>Actual Due Date</h3><p>The real completion date, or the adjusted date if a task will run late.</p></div>
+        <div><h3>Open / Closed</h3><p>Where the task stands today. Closed rows stay on the page.</p></div>
+        <div><h3>Action Records</h3><p>The dated reason behind every change, including decisions made by the customer.</p></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="dates">
+      <h2 id="dates">We never erase a date</h2>
+      <p>The Initial Due Date is written once and never overwritten. When a task finishes late, or will, the new date goes in the Actual Due Date column and the reason goes in Action Records, with the date of the decision. If a task is reworked, it gets a new row instead of replacing the old one.</p>
+      <div class="compare">
+        <div><h3>Meeting minutes</h3><p>Complete, but spread over many files. Nobody rereads them to see how one task changed.</p></div>
+        <div><h3>A schedule with overwritten dates</h3><p>Easy to read, but it has no memory. A project that slipped three times looks the same as one that never slipped.</p></div>
+        <div class="us"><h3>Yomura's control table</h3><p>Plan, result and reason sit on one line. Anyone who opens the report sees the full history of every task.</p></div>
+      </div>
+      <div class="why"><p><strong>Why it matters to you.</strong> When you ask why a tool is a week late, we answer from the page, and the page shows the dates of your own decisions as well as ours. The gap between the two date columns also shows where time was lost, so the next project is planned with that lesson built in.</p></div>
+    </section>
+
+    <section aria-labelledby="expect">
+      <h2 id="expect">What you can expect from us</h2>
+      <ul class="tick">
+        <li><strong>A named project manager</strong> and a fixed weekly review.</li>
+        <li><strong>One page</strong> that shows every task, owner and due date under the six Ms.</li>
+        <li><strong>Early warning.</strong> A slipping task shows up in the report with its reason, not at the end of the project.</li>
+        <li><strong>Your decisions on record.</strong> When you change a requirement, we log it with the date and update the plan.</li>
+        <li><strong>Continuous improvement.</strong> Defects and complaints are followed through 8D and CAR and feed the next project.</li>
+      </ul>
+    </section>
+
+    <section class="end">
+      <div class="cta">
+        <div><h2>Planning a new program?</h2><p>Send us your drawing, target price and launch date. We will show you how your project would be laid out.</p></div>
+        <a class="btn" href="/contact/">Contact our engineering team</a>
+      </div>
+    </section>
+  </div>
+</main>
+</body>
+</html>
